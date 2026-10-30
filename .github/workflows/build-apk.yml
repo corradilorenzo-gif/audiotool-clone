@@ -39,7 +39,16 @@ jobs:
           gradle-version: '8.9'
 
       - name: Build debug APK
-        run: gradle :app:assembleDebug --no-daemon
+        id: build
+        run: gradle :app:assembleDebug --no-daemon 2>&1 | tee build.log
+
+      - name: Report build log on failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tail -n 150 build.log > tail.log || true
+          gh issue create --title "build-apk failed (run $GITHUB_RUN_ID)" --body-file tail.log || true
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
