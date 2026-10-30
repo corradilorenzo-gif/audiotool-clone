@@ -71,16 +71,16 @@ public final class MainActivity extends AppCompatActivity {
         splText.setTextSize(44f);
         splText.setGravity(Gravity.CENTER);
         splText.setText("-- dB SPL");
-        root.addView(splText, match(), wrap());
+        root.addView(splText, wrap());
 
         leqText = new TextView(this);
         leqText.setTextSize(16f);
         leqText.setGravity(Gravity.CENTER);
         leqText.setText("Leq --");
-        root.addView(leqText, match(), wrap());
+        root.addView(leqText, wrap());
 
         spectrum = new SpectrumView(this, null);
-        root.addView(spectrum, match(), new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f));
+        root.addView(spectrum, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f));
 
         LinearLayout row1 = row();
         startStop = button("Start", v -> toggleCapture());
@@ -89,12 +89,12 @@ public final class MainActivity extends AppCompatActivity {
         row1.addView(startStop, weightLp());
         row1.addView(weightingButton, weightLp());
         row1.addView(octaveButton, weightLp());
-        root.addView(row1, match(), wrap());
+        root.addView(row1, wrap());
 
         LinearLayout row2 = row();
         row2.addView(button("Reset", v -> analyzer.resetStatistics()), weightLp());
         row2.addView(button("Calibrate", v -> showCalibrate()), weightLp());
-        root.addView(row2, match(), wrap());
+        root.addView(row2, wrap());
 
         return root;
     }
